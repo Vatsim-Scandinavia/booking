@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\EventLink;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Event
@@ -134,12 +135,17 @@ class Event extends Model
         return $this->hasOne(Airport::class, 'id', 'arr');
     }
 
+    public function links()
+    {
+        return $this->hasMany(EventLink::class);
+    }
+
     public function faqs()
     {
         return $this->belongsToMany(Faq::class);
     }
 
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [

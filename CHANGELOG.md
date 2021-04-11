@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.2.1](https://github.com/daveroverts/bmac/compare/v2.2.0...v2.2.1) - 2021-04-03
+
+### Changed
+
+- `BookingResource` times return `null` instead of '-' if not set.
+
+## [v2.2.0](https://github.com/daveroverts/bmac/compare/v2.1.0.e...v2.2.0) - 2021-01-29
+
+### Added
+
+- Added `EventLink`, a copy of `AirportLink`
+
+### Removed
+
+- Removed old static oceanic briefing, use the new `EventLink` for that.
+
+## [v2.1.0.e](https://github.com/daveroverts/bmac/compare/v2.1.0.d...v2.1.0.e) - 2021-01-05
+
+### Changed
+
+- Fix for times not showing in 'views.booking.edit' view.
+
+## [v2.1.0.d](https://github.com/daveroverts/bmac/compare/v2.1.0.c...v2.1.0.d) - 2021-01-05
+
+### Added
+
+- Added '/ddev' to .gitignore.
+- Validation for aircraft_type in import.
+
+### Changed
+
+- Fix for is_editable always being ignored in import.
+- Fix for destination not showing in 'views.booking.edit' view.
+
+## [v2.1.0.c](https://github.com/daveroverts/bmac/compare/v2.1.0.b...v2.1.0.c) - 2021-01-03
+
+### Added
+
+- Re-Added 'route' as extra optional import field.
+
+## [v2.1.0.b](https://github.com/daveroverts/bmac/compare/v2.1.0.a...v2.1.0.b) - 2021-01-03
+
+### Added
+
+- Added 'oceanicTrack' as extra optional import field.
+- Added 'fl' as extra optional import field.
+
+### Changed
+
+- Fixed issue where empty notes in import return HTTP 500.
+- PHP 8 support.
+
 ## [v2.1.0.a](https://github.com/daveroverts/bmac/compare/v2.1.0...v2.1.0.a) - 2020-12-22
 
 ### Changed
