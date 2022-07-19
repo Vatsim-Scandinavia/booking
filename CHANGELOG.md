@@ -1,11 +1,213 @@
-# Changelog
+# [2.8.0](https://github.com/daveroverts/bmac/compare/v2.7.2...v2.8.0) (2022-06-02)
 
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Features
 
-## [Unreleased]
+* drop php 8.0 support ([ac77241](https://github.com/daveroverts/bmac/commit/ac772415f81f035508b6403118d9f6c01d7d3b4e))
+
+## [2.7.2](https://github.com/daveroverts/bmac/compare/v2.7.1...v2.7.2) (2022-02-27)
+
+
+### Bug Fixes
+
+* fix multi-flight route assign template ([dc0a639](https://github.com/daveroverts/bmac/commit/dc0a6398a6738962b7804084554960afc7424d0b))
+
+## [2.7.1](https://github.com/daveroverts/bmac/compare/v2.7.0...v2.7.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* **AirportsImport:** fix validation errors ([2b82f6f](https://github.com/daveroverts/bmac/commit/2b82f6fd75411b7b33c644abe75473f301274710))
+
+# [2.7.0](https://github.com/daveroverts/bmac/compare/v2.6.5...v2.7.0) (2022-02-22)
+
+
+### Features
+
+* add sentry as extra logging service ([1e793ab](https://github.com/daveroverts/bmac/commit/1e793ab8e7b464c78d4ab1179fccaccc03b8eb03))
+
+## [2.6.5](https://github.com/daveroverts/bmac/compare/v2.6.4...v2.6.5) (2022-02-13)
+
+
+### Bug Fixes
+
+* fix first login not logging in ([d0eda66](https://github.com/daveroverts/bmac/commit/d0eda6606e635664a535e01bf47f42724db64561)), closes [#408](https://github.com/daveroverts/bmac/issues/408)
+* **Helper.php:** fix for redeclare messages ([85711c8](https://github.com/daveroverts/bmac/commit/85711c810d58f081b363bb0a3c1db5f093aabeb9))
+
+## [2.6.4](https://github.com/daveroverts/bmac/compare/v2.6.3...v2.6.4) (2022-02-12)
+
+
+### Bug Fixes
+
+* upgrade to laravel 9 ([f582f33](https://github.com/daveroverts/bmac/commit/f582f337eeb903a0827a467f93bf29924c6962e0))
+
+## [2.6.3](https://github.com/daveroverts/bmac/compare/v2.6.2...v2.6.3) (2022-01-12)
+
+
+### Bug Fixes
+
+* Remove active class from logout ([9e11108](https://github.com/daveroverts/bmac/commit/9e11108fea912af15cc036b73df5ad886e58434d)), closes [#409](https://github.com/daveroverts/bmac/issues/409)
+* Remove events divider if there's no event ([7f7f0db](https://github.com/daveroverts/bmac/commit/7f7f0db64fd75193d60d8a56ae771473e820be78)), closes [#410](https://github.com/daveroverts/bmac/issues/410)
+
+## [2.6.2](https://github.com/daveroverts/bmac/compare/v2.6.1...v2.6.2) (2022-01-11)
+
+
+### Bug Fixes
+
+* re-add event / airport links to booking views ([96c639a](https://github.com/daveroverts/bmac/commit/96c639aefd56f916ef481ee7c4da1ba8704837c9))
+
+## [2.6.1](https://github.com/daveroverts/bmac/compare/v2.6.0...v2.6.1) (2022-01-06)
+
+
+### Bug Fixes
+
+* SendEventFinalInformationNotification sending email to booked user ([5bf1831](https://github.com/daveroverts/bmac/commit/5bf1831d7471d2ebba76fcc0160896e4be855384)), closes [#405](https://github.com/daveroverts/bmac/issues/405)
+
+# [2.6.0](https://github.com/daveroverts/bmac/compare/v2.5.2...v2.6.0) (2022-01-02)
+
+
+### Bug Fixes
+
+* **AirportImport:** fix majority of airports not importing ([492cfec](https://github.com/daveroverts/bmac/commit/492cfec0041bfa2f6246e7123270e29594bc871a))
+
+
+### Features
+
+* add coordinates to airport model ([fb88e9f](https://github.com/daveroverts/bmac/commit/fb88e9f0689190a55f9433e8bf9405e749f44903)), closes [#194](https://github.com/daveroverts/bmac/issues/194)
+* **AirportImport:** replace route with command ([6e2f000](https://github.com/daveroverts/bmac/commit/6e2f00015ee9617ce5302a053f2599aa33b6ed85))
+* **AirportsImport:** add better validation to airport import ([6b1ae83](https://github.com/daveroverts/bmac/commit/6b1ae83959c82d22eabd7cfd60ed8263e2c7330d))
+* **AirportsImport:** change airport import file source ([bb0859f](https://github.com/daveroverts/bmac/commit/bb0859f042e5be75343cea31851b49497f0c5c45))
+
+
+### Performance Improvements
+
+* **AirportImport:** AirportImport now runs on queue ([f7170fe](https://github.com/daveroverts/bmac/commit/f7170fe33b408a9eb4ab9f65938a576015dbbeee))
+
+## [2.5.2](https://github.com/daveroverts/bmac/compare/v2.5.1...v2.5.2) (2022-01-01)
+
+
+### Bug Fixes
+
+* fix missing time in flatpickr ([036bf0b](https://github.com/daveroverts/bmac/commit/036bf0b38571cc6e2fd51c06667987dc6950e23a))
+
+## [2.5.1](https://github.com/daveroverts/bmac/compare/v2.5.0...v2.5.1) (2022-01-01)
+
+
+### Bug Fixes
+
+* fix missing styling for flatpickr ([5a2e01b](https://github.com/daveroverts/bmac/commit/5a2e01b1cb8beb2aadc4b0223ba2231626e4b066))
+
+# [2.5.0](https://github.com/daveroverts/bmac/compare/v2.4.0...v2.5.0) (2022-01-01)
+
+
+### Features
+
+* Add alpine.js ([ac036e2](https://github.com/daveroverts/bmac/commit/ac036e2fc64fd067f62bcc363fa0e0946e66919f))
+* add blade-ui-kit package ([d52915c](https://github.com/daveroverts/bmac/commit/d52915ca1dff9744dc1f659c2039632b890ad366))
+* **admin:** replace jquery-ui datepicker with flatpickr ([9d91ff1](https://github.com/daveroverts/bmac/commit/9d91ff1fe49e465dc2e3775a83d8c9a3ee94bb25)), closes [#122](https://github.com/daveroverts/bmac/issues/122)
+* move tinymce to separate js file ([ac732d8](https://github.com/daveroverts/bmac/commit/ac732d8ddd38af46ec75241d4abc58321916ee72))
+
+# [2.4.0](https://github.com/daveroverts/bmac/compare/v2.3.0...v2.4.0) (2021-12-30)
+
+
+### Bug Fixes
+
+* airports.import route could not be called by name ([90b265b](https://github.com/daveroverts/bmac/commit/90b265b653ffaa06c44af253d5c076895ff7d184))
+
+
+### Features
+
+* Add ability to delete unused airports ([46b3d2f](https://github.com/daveroverts/bmac/commit/46b3d2f31f93463ad2321eb689aeda4a9dfde562)), closes [#399](https://github.com/daveroverts/bmac/issues/399)
+
+# [2.3.0](https://github.com/daveroverts/bmac/compare/v2.2.7...v2.3.0) (2021-12-28)
+
+
+### Features
+
+* Add commitizen with cz-commitlint adapter ([476f56a](https://github.com/daveroverts/bmac/commit/476f56ad4e24285adaf1c9531d7e8a64eecbb216))
+* Add semantic-release ([856d3b0](https://github.com/daveroverts/bmac/commit/856d3b05e2e6f64dcf20e80c848933fb34f8ba68))
+
+## [v2.2.7](https://github.com/daveroverts/bmac/compare/v2.2.6...v2.2.7) - 2021-12-25
+
+### Added
+- Added PHP 8.1 support
+- All e-mails now include the event name as part of subject.
+
+## [v2.2.6](https://github.com/daveroverts/bmac/compare/v2.2.5...v2.2.6) - 2021-12-13
+
+### Added
+- Added [protonemedia/laravel-form-components](https://github.com/protonemedia/laravel-form-components) for all forms. Bootstrap 4 stuff have been published and changed to support custom forms (for Bootswatch Flatly) as much as possible. The only one I didn't change was input file.
+- All strings (the ones I looked at) while adding laravel-form-components are now translatable.
+- Added `EventCleanupReservations` job + command
+- Added ability to delete bookings, in case you screwed up import, and want to do that again.
+- Added following to `EventResource`
+  - `url`: URL of the event for easier access
+  - `total_bookings_count`: Total bookings that are in the system for the event.
+  - `available_bookings_count`: Bookings that are still available to be booked.
+
+### Changed
+- Changed some flash messages.
+- Lots of old migrations that I screwed up back when I started this project in 2018
+
+### Removed
+- Removed (renatomarinho/laravel-page-speed)[https://github.com/renatomarinho/laravel-page-speed] as it gave to too many headaches, and I always just disabled it because of that.
+- Removed `BookingController removeOverdueReservations()`, replaced by `EventCleanupReservationsJob`
+- Dropped support for PHP 7.4
+- Removed route `/bookings` | `bookings.index`.
+
+## [v2.2.5](https://github.com/daveroverts/bmac/compare/v2.2.4a...v2.2.5) - 2021-11-14
+
+### Changed
+- `master` branch renamed to `main`
+- Laravel Horizon and Laravel Telescope use dark theme by default.
+- Fix for Laravel Horizon and Laravel Telescope gates failing in non-local environments
+- Fix for Bootstrap pagination + jQuery UI (for datepicker) missing CSS.
+- The very first `users` table migration now does not include unique index. #357
+
+## [v2.2.4a](https://github.com/daveroverts/bmac/compare/v2.2.4...v2.2.4a) - 2021-11-08
+
+### Changed
+- Updated config files in `config` to match default Laravel 8 as much as possible.
+- Updated `.env.example` to match default Laravel 8 as much as possible.
+
+## [v2.2.4](https://github.com/daveroverts/bmac/compare/v2.2.3...v2.2.4) - 2021-11-07
+
+### Added
+
+- Added [laravel-mix-purgecss](https://github.com/spatie/laravel-mix-purgecss) to minify css.
+- Added [Laravel Horizon](https://laravel.com/docs/master/horizon).
+
+## [v2.2.3](https://github.com/daveroverts/bmac/compare/v2.2.2b...v2.2.3) - 2021-11-06
+
+### Added
+
+- Added [AWS SDK for PHP](https://github.com/aws/aws-sdk-php) to support services like S3, SES and SQS
+
+## [v2.2.2b](https://github.com/daveroverts/bmac/compare/v2.2.2a...v2.2.2b) - 2021-10-24
+
+### Added
+
+- Added [Laravel Sail](https://laravel.com/docs/master/sail) with `.devcontainer`
+
+### Changed
+
+- Fix for send test email not working (again)
+
+## [v2.2.2a](https://github.com/daveroverts/bmac/compare/v2.2.2...v2.2.2a) - 2021-10-24
+
+### Changed
+
+- README.md rewritten
+- Fix for send test email not working
+
+## [v2.2.2](https://github.com/daveroverts/bmac/compare/v2.2.1...v2.2.2) - 2021-10-09
+
+### Changed
+
+- Deployment package changed from ``lorisleiva/laravel-deployer`` to ``deployphp/deployer``
+  - This is temporary for PHP 8 support, I'll move the deployment script somewhere else later on.
+- PHP 8 support
+- `import_template.xlsx` now uses correct header values.
 
 ## [v2.2.1](https://github.com/daveroverts/bmac/compare/v2.2.0...v2.2.1) - 2021-04-03
 

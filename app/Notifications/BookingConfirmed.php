@@ -13,20 +13,13 @@ class BookingConfirmed extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * The booking instance.
-     *
-     * @var Booking
-     */
-    public $booking;
-
-    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Booking $booking)
+    public function __construct(public Booking $booking)
     {
-        $this->booking = $booking;
+        //
     }
 
     /**
@@ -49,8 +42,11 @@ class BookingConfirmed extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $booking = $this->booking;
+        $subject = $booking->event->name . ': ' . __('Booking confirmed');
 
-        return (new MailMessage)->markdown('emails.booking.confirmed', ['booking' => $booking]);
+        return (new MailMessage())
+            ->subject($subject)
+            ->markdown('emails.booking.confirmed', ['booking' => $booking]);
     }
 
     /**

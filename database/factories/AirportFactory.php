@@ -23,9 +23,11 @@ class AirportFactory extends Factory
     public function definition()
     {
         return [
-            'icao' => strtoupper(Str::random(4)),
-            'iata' => strtoupper(Str::random(3)),
+            'icao' => $this->faker->unique()->regexify('[A-Z]{4}'),
+            'iata' => $this->faker->unique()->regexify('[A-Z]{3}'),
             'name' => $this->faker->name . ' Airport',
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
         ];
     }
 }

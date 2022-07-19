@@ -13,20 +13,13 @@ use Illuminate\Queue\SerializesModels;
 
 class BookingConfirmed
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
-    public $booking;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param Booking $booking
-     *
-     * @return void
-     */
-    public function __construct(Booking $booking)
+    public function __construct(public Booking $booking)
     {
-        $this->booking = $booking;
+        //
     }
 
     /**

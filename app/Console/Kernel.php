@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\EventCleanupReservationsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,11 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command(EventCleanupReservationsCommand::class)->everyFiveMinutes();
+
         $schedule->command('activitylog:clean')->daily();
+
         if (config('telescope.enabled')) {
             $schedule->command('telescope:prune')->daily();
         }
 
+        if (config('queue.default') == 'redis') {
+            $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        }
     }
 
     /**

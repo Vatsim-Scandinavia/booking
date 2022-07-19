@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AirportLink;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\AirportLinkType
@@ -16,15 +20,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Activitylog\Models\Activity[] $activities
  * @property-read int|null $activities_count
- * @property-read \App\Models\AirportLink $links
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType whereClass($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AirportLinkType whereUpdatedAt($value)
+ * @property-read AirportLink $links
+ * @method static Builder|AirportLinkType newModelQuery()
+ * @method static Builder|AirportLinkType newQuery()
+ * @method static Builder|AirportLinkType query()
+ * @method static Builder|AirportLinkType whereClass($value)
+ * @method static Builder|AirportLinkType whereCreatedAt($value)
+ * @method static Builder|AirportLinkType whereId($value)
+ * @method static Builder|AirportLinkType whereName($value)
+ * @method static Builder|AirportLinkType whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class AirportLinkType extends Model
@@ -32,17 +36,26 @@ class AirportLinkType extends Model
     use HasFactory;
     use LogsActivity;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = ['id'];
 
-    protected static $logAttributes = ['*'];
-    protected static $logOnlyDirty = true;
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('name');
+        });
+    }
 
-    public function links()
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logOnlyDirty();
+    }
+
+    public function links(): BelongsTo
     {
         return $this->belongsTo(AirportLink::class, 'id');
     }

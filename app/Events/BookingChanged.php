@@ -14,23 +14,13 @@ use Illuminate\Support\Collection;
 
 class BookingChanged
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
-    public $booking;
-    public $changes;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param Booking $booking
-     * @param Collection $changes
-     *
-     * @return void
-     */
-    public function __construct(Booking $booking, Collection $changes)
+    public function __construct(public Booking $booking, public Collection $changes)
     {
-        $this->booking = $booking;
-        $this->changes = $changes;
+        //
     }
 
     /**

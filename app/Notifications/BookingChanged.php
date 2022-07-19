@@ -14,28 +14,13 @@ class BookingChanged extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * The booking instance.
-     *
-     * @var Booking
-     */
-    public $booking;
-
-    /**
-     * All changes
-     *
-     * @var Booking
-     */
-    public $changes;
-
-    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Booking $booking, Collection $changes)
+    public function __construct(public Booking $booking, public Collection $changes)
     {
-        $this->booking = $booking;
-        $this->changes = $changes;
+        //
     }
 
     /**
@@ -58,9 +43,12 @@ class BookingChanged extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $booking = $this->booking;
+        $subject = $booking->event->name . ': ' . __('Booking changed');
         $changes = $this->changes;
 
-        return (new MailMessage)->markdown('emails.booking.changed', ['booking' => $booking, 'changes' => $changes]);
+        return (new MailMessage())
+            ->subject($subject)
+            ->markdown('emails.booking.changed', ['booking' => $booking, 'changes' => $changes]);
     }
 
     /**

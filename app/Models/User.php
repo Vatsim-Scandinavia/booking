@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\OAuthController;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Booking;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Notifications\Notifiable;
+use App\Http\Controllers\OAuthController;
 use League\OAuth2\Client\Token\AccessToken;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * App\Models\User
@@ -16,53 +19,42 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $name_first
  * @property string $name_last
  * @property string $email
- * @property string $country
- * @property string $region
- * @property string|null $division
- * @property string|null $subdivision
  * @property bool $isAdmin
  * @property int $airport_view
  * @property bool $use_monospace_font
  * @property string|null $remember_token
+ * @property string|null $access_token
+ * @property string|null $refresh_token
+ * @property int|null $token_expires
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Activitylog\Models\Activity[] $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Booking[] $bookings
+ * @property-read \Illuminate\Database\Eloquent\Collection|Booking[] $bookings
  * @property-read int|null $bookings_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
- * @property-read int|null $clients_count
  * @property-read string $full_name
  * @property-read string $pic
+ * @property-read \League\OAuth2\Client\Token\AccessToken|null $token
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
- * @property-read int|null $tokens_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAirportView($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDivision($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsAdmin($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNameFirst($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNameLast($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRegion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereSubdivision($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUseMonospaceFont($value)
- * @mixin \Eloquent
- * @property string|null $access_token
- * @property string|null $refresh_token
- * @property int|null $token_expires
- * @property-read AccessToken $token
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAccessToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAirportView($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNameFirst($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNameLast($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRefreshToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTokenExpires($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUseMonospaceFont($value)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -70,20 +62,13 @@ class User extends Authenticatable
     use LogsActivity;
     use Notifiable;
 
-    protected static $logAttributes = ['*'];
-    protected static $logOnlyDirty = true;
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [
-        'id', 'isAdmin'
+        'isAdmin'
     ];
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'remember_token',
@@ -91,34 +76,29 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'isAdmin' => 'boolean',
         'use_monospace_font' => 'boolean',
     ];
 
-    public function bookings()
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logOnlyDirty();
+    }
+
+    public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }
 
-    /**
-     * Get the user's full name.
-     *
-     * @return string
-     */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return ucfirst($this->name_first) . ' ' . ucfirst($this->name_last);
     }
 
-    /**
-     * Get the user's full name and Vatsim ID.
-     *
-     * @return string
-     */
-    public function getPicAttribute()
+    public function getPicAttribute(): string
     {
         if (!empty($this->full_name) && !empty($this->id)) {
             return "{$this->full_name} | {$this->id}";
@@ -126,36 +106,30 @@ class User extends Authenticatable
         return '-';
     }
 
-    /**
-     * When doing $user->token, return a valid access token or null if none exists
-     *
-     * @return \League\OAuth2\Client\Token\AccessToken
-     * @return null
-     */
-    public function getTokenAttribute()
+    public function getTokenAttribute(): ?AccessToken
     {
-        if ($this->access_token === null) return null;
-        else {
-            $token = new AccessToken([
-                'access_token' => $this->access_token,
-                'refresh_token' => $this->refresh_token,
-                'expires' => $this->token_expires,
-            ]);
-
-            if ($token->hasExpired()) {
-                $token = OAuthController::updateToken($token);
-            }
-
-            // Can't put it inside the "if token expired"; $this is null there
-            // but anyway Laravel will only update if any changes have been made.
-            $this->update([
-                'access_token' => ($token) ? $token->getToken() : null,
-                'refresh_token' => ($token) ? $token->getRefreshToken() : null,
-                'token_expires' => ($token) ? $token->getExpires() : null,
-            ]);
-
-            return $token;
+        if ($this->access_token === null) {
+            return null;
         }
-    }
 
+        $token = new AccessToken([
+            'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
+            'expires' => $this->token_expires,
+        ]);
+
+        if ($token->hasExpired()) {
+            $token = OAuthController::updateToken($token);
+        }
+
+        // Can't put it inside the "if token expired"; $this is null there
+        // but anyway Laravel will only update if any changes have been made.
+        $this->update([
+            'access_token' => ($token) ? $token->getToken() : null,
+            'refresh_token' => ($token) ? $token->getRefreshToken() : null,
+            'token_expires' => ($token) ? $token->getExpires() : null,
+        ]);
+
+        return $token;
+    }
 }

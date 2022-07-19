@@ -4,9 +4,14 @@ namespace App\Enums;
 
 use BenSampo\Enum\Enum;
 
+/**
+ * @method static static UNASSIGNED()
+ * @method static static RESERVED()
+ * @method static static BOOKED()
+ */
 final class BookingStatus extends Enum
 {
-    const UNASSIGNED = 0;
-    const RESERVED = 1;
-    const BOOKED = 2;
+    public const UNASSIGNED = 0;
+    public const RESERVED = 1;
+    public const BOOKED = 2;
 }

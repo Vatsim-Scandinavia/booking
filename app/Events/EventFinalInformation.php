@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -13,20 +14,18 @@ use Illuminate\Queue\SerializesModels;
 
 class EventFinalInformation
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $booking;
-    public $testMode;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Booking $booking, $testMode = false)
+    public function __construct(public Booking $booking, public ?User $testUser = null)
     {
-        $this->booking = $booking;
-        $this->testMode = $testMode;
+        //
     }
 
     /**

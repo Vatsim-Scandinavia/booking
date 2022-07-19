@@ -13,34 +13,13 @@ class EventBulkEmail extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * The event instance.
-     *
-     * @var Event
-     */
-    public $event;
-
-    /**
-     * The subject.
-     *
-     */
-    public $subject;
-
-    /**
-     * The message.
-     *
-     */
-    public $content;
-
-    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($event, $subject, $content)
+    public function __construct(public Event $event, public string $subject, public string $content)
     {
-        $this->event = $event;
-        $this->subject = $subject;
-        $this->content = $content;
+        //
     }
 
     /**
@@ -62,9 +41,9 @@ class EventBulkEmail extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $subject = $this->event->name.': '.$this->subject;
+        $subject = $this->event->name . ': ' . $this->subject;
         $content = $this->content;
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject($subject)
             ->markdown('emails.event.bulkEmail', [
                 'full_name' => $notifiable->full_name,
@@ -83,7 +62,7 @@ class EventBulkEmail extends Notification implements ShouldQueue
     {
         return [
             'user_id' => $notifiable->id,
-            'subject' => $subject = $this->event->name.': '.$this->subject,
+            'subject' => $this->event->name . ': ' . $this->subject,
             'content' => $this->content,
         ];
     }

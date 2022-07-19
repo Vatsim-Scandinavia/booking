@@ -1,5 +1,16 @@
 {
+    "name": "bmac",
     "private": true,
+    "version": "2.8.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/daveroverts/bmac.git"
+    },
+    "author": {
+        "name": "Dave Roverts",
+        "email": "me@daveroverts.nl",
+        "url": "https://www.daveroverts.nl"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
@@ -7,34 +18,71 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "semantic-release": "semantic-release"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.3",
-        "@fortawesome/fontawesome-svg-core": "^1.2.35",
-        "@fortawesome/free-brands-svg-icons": "^5.15.3",
-        "@fortawesome/free-regular-svg-icons": "^5.15.3",
-        "@fortawesome/free-solid-svg-icons": "^5.15.3",
-        "axios": "^0.21.1",
-        "bootstrap": "^4.6.0",
-        "browser-sync": "^2.26.14",
-        "browser-sync-webpack-plugin": "2.3.0",
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "@commitlint/cz-commitlint": "^17.0.3",
+        "@eclass/semantic-release-sentry-releases": "^3.0.0",
+        "@fortawesome/fontawesome-free": "^6.1.1",
+        "@fortawesome/fontawesome-svg-core": "^6.1.1",
+        "@fortawesome/free-brands-svg-icons": "^6.1.1",
+        "@fortawesome/free-regular-svg-icons": "^6.1.1",
+        "@fortawesome/free-solid-svg-icons": "^6.1.1",
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "axios": "^0.27.2",
+        "bootstrap": "^4.6.1",
+        "browser-sync": "^2.27.10",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "commitizen": "^4.2.4",
         "cross-env": "^7.0.3",
         "jquery": "^3.6.0",
-        "jquery-ui": "^1.12.1",
-        "laravel-mix": "^6.0.16",
-        "lodash": "^4.17.21",
+        "laravel-mix": "^6.0.49",
+        "laravel-mix-purgecss": "^6.0.0",
         "popper.js": "^1.16.1",
-        "postcss": "^8.2.9",
-        "resolve-url-loader": "^3.1.2",
-        "sass": "^1.32.8",
-        "sass-loader": "^11.0.1",
-        "vue": "^2.6.12",
-        "vue-template-compiler": "^2.6.12"
+        "postcss": "^8.4.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.53.0",
+        "sass-loader": "^13.0.2",
+        "semantic-release": "^19.0.3",
+        "tinymce": "^6.1.0"
     },
     "dependencies": {
-        "bootswatch": "^4.6.0",
-        "sweetalert2": "^10.15.7",
-        "tinymce": "^5.7.1"
+        "alpinejs": "^3.10.2",
+        "bootswatch": "^4.6.1",
+        "flatpickr": "^4.6.13",
+        "sweetalert2": "^11.4.19"
+    },
+    "release": {
+        "branches": [
+            "+([0-9])?(.{+([0-9]),x}).x",
+            "main",
+            "next",
+            "next-major",
+            {
+                "name": "beta",
+                "prerelease": true
+            },
+            {
+                "name": "alpha",
+                "prerelease": true
+            }
+        ],
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/npm",
+            "@semantic-release/changelog",
+            "@semantic-release/git",
+            "@semantic-release/github"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/@commitlint/cz-commitlint"
+        }
     }
 }

@@ -3,23 +3,24 @@
 namespace Tests\Unit;
 
 use App\Models\Event;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EventTest extends TestCase
-{
+it('creates new event', function () {
+    /** @var TestCase $this */
 
-    use RefreshDatabase;
+    /** @var Event $event */
+    $event = Event::factory()->create();
 
-    /**
-     * Test if a event can be added
-     *
-     * @return void
-     */
-    public function testItCreatesNewEvent()
-    {
-        $event = Event::factory()->create();
-
-        $this->assertDatabaseHas('events', $event->toArray());
-    }
-}
+    $this->assertDatabaseHas('events', [
+        'id' => $event->id,
+        'name' => $event->name,
+        'slug' => $event->slug,
+        'description' => $event->description,
+        'dep' => $event->dep,
+        'arr' => $event->arr,
+        'startEvent' => $event->startEvent,
+        'endEvent' => $event->endEvent,
+        'startBooking' => $event->startBooking,
+        'endBooking' => $event->endBooking,
+    ]);
+});
