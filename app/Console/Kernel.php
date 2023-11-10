@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(EventCleanupReservationsCommand::class)->everyFiveMinutes();
 
-        $schedule->command('activitylog:clean')->daily();
+        $schedule->command('activitylog:clean --force')->daily();
 
         if (config('telescope.enabled')) {
             $schedule->command('telescope:prune')->daily();
@@ -35,6 +35,10 @@ class Kernel extends ConsoleKernel
 
         if (config('queue.default') == 'redis') {
             $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        }
+
+        if (config('queue.default') == 'redis') {
+            $schedule->command('cache:prune-stale-tags')->hourly();
         }
     }
 

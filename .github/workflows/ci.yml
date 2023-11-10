@@ -2,7 +2,7 @@
 name: CI
 on:
   push:
-    branches: [main, staging, trying]
+    branches: [main]
   pull_request:
     branches: [main]
 jobs:
@@ -35,8 +35,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ["8.1"]
-        node: [14, 16, 18]
+        php-versions: ["8.1", "8.2"]
+        node: [16, 18]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -51,20 +51,7 @@ jobs:
       - name: Start mysql service
         run: sudo systemctl start mysql.service
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          # Use composer.json for key, if composer.lock is not committed.
-          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-      - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+      - uses: ramsey/composer-install@v2
 
       - name: Prepare the application
         run: |
@@ -133,7 +120,7 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ["8.1"]
-        node: [14, 16, 18]
+        node: [16, 18]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -146,21 +133,7 @@ jobs:
           coverage: xdebug
           tools: phpcs, phpcpd
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          # Use composer.json for key, if composer.lock is not committed.
-          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+      - uses: ramsey/composer-install@v2
 
       - name: Prepare the application
         run: |
@@ -198,13 +171,3 @@ jobs:
 
       - name: Copy/Paste Detector
         run: phpcpd app/ --min-lines=50
-  ci-success:
-    name: CI
-    if: ${{ success() }}
-    needs:
-      - test-php-mysql
-      - test-php-postgresql
-    runs-on: ubuntu-latest
-    steps:
-      - name: CI succeeded
-        run: exit 0

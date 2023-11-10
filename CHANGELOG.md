@@ -1,3 +1,62 @@
+# [3.2.0](https://github.com/daveroverts/bmac/compare/v3.1.0...v3.2.0) (2023-09-28)
+
+
+### Bug Fixes
+
+* **console:** Fix for activity-log not cleaning up every day ([7de6dd1](https://github.com/daveroverts/bmac/commit/7de6dd118fdaa8e8ba0497cb2fdc3c47302dd53b))
+
+
+### Features
+
+* **oauth:** add support for custom scopes ([#730](https://github.com/daveroverts/bmac/issues/730)) ([e2a9cb0](https://github.com/daveroverts/bmac/commit/e2a9cb05d95365da4ab627de6f7ce88f7c55bae5))
+
+# [3.1.0](https://github.com/daveroverts/bmac/compare/v3.0.1...v3.1.0) (2023-09-07)
+
+
+### Features
+
+* update to laravel 10 ([63fcc43](https://github.com/daveroverts/bmac/commit/63fcc431ce7036a100901306ccbd4c04f8abeac8))
+
+## [3.0.1](https://github.com/daveroverts/bmac/compare/v3.0.0...v3.0.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* remove bors ([eacdd9e](https://github.com/daveroverts/bmac/commit/eacdd9ed4fcf3d57bf59cff5a61476c4c9f9bf43)), closes [#596](https://github.com/daveroverts/bmac/issues/596)
+
+# [3.0.0](https://github.com/daveroverts/bmac/compare/v2.8.6...v3.0.0) (2023-04-03)
+
+
+### Bug Fixes
+
+* **npm:** Drop node v14 support ([1369abf](https://github.com/daveroverts/bmac/commit/1369abf316b552ef9f4787e5b5ea1bab935e8510))
+
+
+### BREAKING CHANGES
+
+* **npm:** Dropped support for node v14. There where issues with alpinejs
+
+## [2.8.6](https://github.com/daveroverts/bmac/compare/v2.8.5...v2.8.6) (2023-04-03)
+
+
+### Bug Fixes
+
+* **sail:** up sail php to 8.1 ([c595010](https://github.com/daveroverts/bmac/commit/c595010d56d1d14ed9fcdeadf90f5722e846f8c2))
+
+## [2.8.5](https://github.com/daveroverts/bmac/compare/v2.8.4...v2.8.5) (2022-12-05)
+
+
+### Bug Fixes
+
+* disable user endpoint ([254302f](https://github.com/daveroverts/bmac/commit/254302f9e92e1029e5365cf51df7549e9d7b0ff2))
+
+## [2.8.4](https://github.com/daveroverts/bmac/compare/v2.8.3...v2.8.4) (2022-12-05)
+
+
+### Bug Fixes
+
+* **deps:** downgrade sweetalert2 to 11.4.8 ([9671671](https://github.com/daveroverts/bmac/commit/96716710402757870ea4cf256bd6ce6a5627fa1a))
+
 ## [2.8.3](https://github.com/daveroverts/bmac/compare/v2.8.2...v2.8.3) (2022-11-14)
 
 

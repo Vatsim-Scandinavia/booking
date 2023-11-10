@@ -1,7 +1,7 @@
 
 # Book me a Cookie [BMAC]
 
-![CI](https://github.com/daveroverts/bmac/workflows/CI/badge.svg) [![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/56570)
+![CI](https://github.com/daveroverts/bmac/workflows/CI/badge.svg)
 
 
 Book me a Cookie [BMAC] is a Vatsim booking system created in Laravel.
@@ -48,7 +48,7 @@ Connect Development Environment. Details can be found here: <https://github.com/
 
 Before you begin, make sure you have a server with the following installed:
 
-- PHP 8.1
+- PHP 8.1 or greater
 - PHP extensions:
   - [Laravel](https://laravel.com/docs/deployment)
     - BCMath PHP Extension
@@ -71,7 +71,7 @@ Before you begin, make sure you have a server with the following installed:
     - php_simplexml
     - php_xmlreader
     - php_zlib
-- NodeJS: I recommend LTS (v16 at time of writing), minimum v14
+- NodeJS: I recommend LTS (v18 at time of writing), minimum v16
 
 For local development,
 I use [Laravel Valet](https://laravel.com/docs/9.x/valet),
