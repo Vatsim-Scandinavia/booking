@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    container_name: booking
+    image: ghcr.io/vatsim-scandinavia/booking:v3
+    ports:
+        - 8080:80
+        - 8443:443
+    volumes:
+      - storage:/app/storage
+    environment:
+      # Please check the complete configure guide for all variables and their description
+      # You need to adjust this file to your needs
+      - APP_NAME=Booking
+      - APP_OWNER=Your VACC Name
+      - APP_OWNER_SHORT=SCA
+      - APP_OWNER_CONTACT="director@yourvacc.com"
+      - APP_URL=https://booking.yourvacc.com
+      - APP_ENV=production
+      - DB_HOST=localhost
+      - DB_DATABASE=booking
+      - DB_USERNAME=booking
+      - DB_PASSWORD=yourPASShere
+      - VATSIM_OAUTH_CLIENT=yourCLIENThere
+      - VATSIM_OAUTH_SECRET=yourSECREThere
+volumes:
+  storage:

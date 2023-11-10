@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+env:
+  IMAGE_NAME: vatsim-scandinavia/booking
+  TARGET_PLATFORMS: linux/amd64
 jobs:
   test-php-mysql:
     name: Test PHP ${{ matrix.php-versions }} + Node ${{ matrix.node }} with MySQL
@@ -171,3 +174,38 @@ jobs:
 
       - name: Copy/Paste Detector
         run: phpcpd app/ --min-lines=50
+  build-container:
+    name: Build Container
+    runs-on: ubuntu-latest
+    steps:
+      - name: configure docker buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: login to github container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: setup container metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ghcr.io/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=pr
+            type=sha,event=branch,prefix=
+            type=semver,event=tag,pattern=v{{version}}
+            type=semver,event=tag,pattern=v{{major}}
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+
+      - name: build & push container image
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:."
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: ${{ env.TARGET_PLATFORMS }}
