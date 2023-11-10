@@ -24,5 +24,6 @@ services:
       - DB_PASSWORD=yourPASShere
       - VATSIM_OAUTH_CLIENT=yourCLIENThere
       - VATSIM_OAUTH_SECRET=yourSECREThere
+      - QUEUE_CONNECTION=database
 volumes:
   storage:
